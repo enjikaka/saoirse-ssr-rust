@@ -25,8 +25,8 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
   let hash_query: HashMap<_, _> = url.query_pairs().to_owned().collect();
 
   match (hash_query.get("itemId"), hash_query.get("itemType"), hash_query.get("musicService")) {
-    (Some(ref itemId), Some(ref itemType), Some(ref musicService)) => {
-      let url = format!("https://api.saoir.se/{itemType}/{musicService}/{itemId}", itemType = itemType, musicService = musicService, itemId = itemId);
+    (Some(ref item_id), Some(ref item_type), Some(ref music_service)) => {
+      let url = format!("https://api.saoir.se/{}/{}/{}", item_type, music_service, item_id);
       let url = Url::parse(&url).expect("Failed to parse URL");
       let client = Client::new();
       let mut response = client
@@ -40,9 +40,9 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
 
       let data: SaoirseResponse = serde_json::from_str(&text).unwrap();
 
-      let mut handlebars = Handlebars::new();
-      let templateFromFile = fs::read_to_string("song.hbs");
-      let html_content = handlebars.render_template("Song name: {{name}}", &data).expect("Failed to render template");
+      let handlebars = Handlebars::new();
+      let template_from_file = fs::read_to_string("song.hbs").expect("Could not read file");
+      let html_content = handlebars.render_template(&template_from_file, &data).expect("Failed to render template");
 
       // let html_content = format!("<b>{name}</b>", name = data.name);
 
@@ -57,6 +57,16 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
 
     _ => Response::builder()
       .status(StatusCode::BAD_REQUEST)
-      .body("`selector` and `url` are required query params".to_string()),
+      .body("`itemId`, `itemType` and `musicService` are required query params".to_string()),
   }
+}
+
+fn main() {
+  let mut request = Request::builder();
+
+  request.uri("http://localhost?musicService=tidal&itemType=track&itemId=104673499");
+
+  let response = handler(request.body(()).unwrap()).expect("Request got handled");
+
+  println!("{:?}", response);
 }
