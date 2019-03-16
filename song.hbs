@@ -65,7 +65,7 @@
 <body>
   <app-header>Saoirse</app-header>
   <div id="router">
-    <link rel=stylesheet href=/media-page.css media="not all" onload="if (media != 'all')media='all'">
+    <link rel=stylesheet href=media-page.css media="not all" onload="if (media != 'all')media='all'">
     <white-box>
       <item-box>
         <img src="" slot=image>
@@ -86,6 +86,11 @@
       <iframe id=tidal-embed src=https://embed.tidal.com/tracks/{{tidal_id}}></iframe>
     </white-box>
   </div>
-  <script type="module" src="main.mjs"></script>
+  <script type="module">
+    import './components/app-header/app-header.js';
+    import './components/white-box/white-box.js';
+    import './components/item-box/item-box.js';
+    import './components/id-table/id-table.js';
+  </script>
 </body>
 </html>
