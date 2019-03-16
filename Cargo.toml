@@ -1,0 +1,16 @@
+[package]
+name = "saoirse-ssr-rust"
+version = "0.0.1"
+edition = "2018"
+
+[dependencies]
+http = "0.1"
+lambda_runtime = "*"
+url = "*"
+reqwest = "*"
+serde = "*"
+serde_json = "*"
+
+[[bin]]
+name = "index"
+path = "index.rs"

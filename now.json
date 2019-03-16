@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "saoirse-ssr-rust",
+  "public": true,
+  "builds": [
+    {
+      "src": "index.rs",
+      "use": "@now/rust"
+    }
+  ]
+}
