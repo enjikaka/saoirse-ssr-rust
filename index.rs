@@ -46,7 +46,7 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
       // let template_from_file = fs::read_to_string("song.hbs").expect("Could not read file");
       // HACK: Read via rawgit from network instead.
 
-      let template_from_rawgit = reqwest::get("https://cdn.jsdelivr.net/gh/enjikaka/saoirse-ssr-rust@4d8ea6fdd95b6292caa44545c0a262a70b45e81e/song.hbs")
+      let template_from_rawgit = reqwest::get("https://cdn.jsdelivr.net/gh/enjikaka/saoirse-ssr-rust@d71682529cbf24d4885ed328016f6e85c2460b34/song.hbs")
         .expect("Could not fetch HBS file from Rawgit")
         .text()
         .expect("Could not parse file as text");
