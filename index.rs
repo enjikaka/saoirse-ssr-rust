@@ -5,7 +5,7 @@ use serde_json;
 use std::collections::HashMap;
 use url::Url;
 use handlebars::Handlebars;
-use std::fs;
+// use std::fs;
 
 #[derive(Serialize, Deserialize)]
 struct SaoirseResponse {
@@ -38,11 +38,20 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
       assert_eq!(response.status(), StatusCode::OK);
       let text = response.text().expect("Failed ot parse text");
 
+
       let data: SaoirseResponse = serde_json::from_str(&text).unwrap();
 
       let handlebars = Handlebars::new();
-      let template_from_file = fs::read_to_string("song.hbs").expect("Could not read file");
-      let html_content = handlebars.render_template(&template_from_file, &data).expect("Failed to render template");
+      // TODO: @now/rust can't read files after deployment
+      // let template_from_file = fs::read_to_string("song.hbs").expect("Could not read file");
+      // HACK: Read via rawgit from network instead.
+
+      let template_from_rawgit = reqwest::get("https://cdn.rawgit.com/enjikaka/saoirse-ssr-rust/master/song.hbs")
+        .expect("Could not fetch HBS file from Rawgit")
+        .text()
+        .expect("Could not parse file as text");
+
+      let html_content = handlebars.render_template(&template_from_rawgit, &data).expect("Failed to render template");
 
       let response = Response::builder()
         .status(StatusCode::OK)
@@ -59,7 +68,7 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
   }
 }
 
-/*
+/* For testing locally, uncomment and run: cargo run
 fn main() {
   let mut request = Request::builder();
 
