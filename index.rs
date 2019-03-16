@@ -1,11 +1,13 @@
 use http::{self, Request, Response, StatusCode};
 use reqwest::{header, Client};
-use serde_derive::{Deserialize};
+use serde_derive::{Serialize, Deserialize};
 use serde_json;
 use std::collections::HashMap;
 use url::Url;
+use handlebars::Handlebars;
+use std::fs;
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 struct SaoirseResponse {
   id: String,
   name: String,
@@ -38,7 +40,11 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
 
       let data: SaoirseResponse = serde_json::from_str(&text).unwrap();
 
-      let html_content = format!("<b>{name}</b>", name = data.name);
+      let mut handlebars = Handlebars::new();
+      let templateFromFile = fs::read_to_string("song.hbs");
+      let html_content = handlebars.render_template("Song name: {{name}}", &data).expect("Failed to render template");
+
+      // let html_content = format!("<b>{name}</b>", name = data.name);
 
       let response = Response::builder()
         .status(StatusCode::OK)

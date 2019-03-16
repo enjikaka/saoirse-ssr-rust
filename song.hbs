@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{name}} - {{artist}} – Saoirse</title>
+  <meta name=twitter:card content=player>
+  <meta name=twitter:site content=@TIDAL>
+  <meta name=twitter:title content="{{name}}}">
+  <meta name=twitter:image content=https://i.scdn.co/image/3936c0d7602d9b8a3cb4f4c0b586f008fe0bcc2f>
+  <meta name=twitter:player content=https://embed.tidal.com/tracks/{{tidal_id}}> <meta name=twitter:player:height content=96>
+  <meta property=og:description content="{{artist}}">
+  <meta property=og:type content=music.song>
+  <meta property=og:title content="{{name}}}">
+  <meta property=og:url content=https://saoir.se/track/spotify/{{spotify_id}}>
+  <meta property=og:image content=https://i.scdn.co/image/3936c0d7602d9b8a3cb4f4c0b586f008fe0bcc2f>
+  <meta property=music:album:url content=https://saoir.se/album/spotify/09Ft4FmAcy8CnuNoy9JbJN>
+  <script type=application/ld+json>
+  {
+    "@context": "http://schema.org",
+    "@type" : "MusicGroup",
+    "name" : "{{artist}}",
+    "track" : [
+      {
+        "@type" : "MusicRecording",
+        "audio" : "null" ,
+        "name" : "{{name}}}",
+        "url": "https://saoir.se/track/spotify/{{spotify_id}}"
+      }
+    ]
+  }</script>
+  <style>
+  body {
+    background-color: #110739;
+    margin: 0;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica
+    Neue', sans-serif;
+  }
+
+  #router {
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    max-width: 800px;
+  }
+  </style>
+  <base href="https://beta.saoir.se">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="modulepreload" crossorigin href="/main.mjs">
+  <link rel="preload" href="/wext-client.js" crossorigin as="script">
+  <link rel="preload" href="/components/app-header/app-header.js" crossorigin as="script">
+  <link rel="preload" href="/components/app-header/app-header.html" crossorigin as="fetch">
+  <link rel="preload" href="/components/app-header/app-header.css" crossorigin as="style">
+  <link rel="dns-prefetch" href="https://i.scdn.co">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#496DE5">
+  <meta name="msapplication-TileColor" content="#496de5">
+  <meta name="theme-color" content="#496de5">
+</head>
+<body>
+  <app-header>Saoirse</app-header>
+  <div id="router">
+    <link rel=stylesheet href=/media-page.css media="not all" onload="if (media != 'all')media='all'">
+    <white-box>
+      <item-box>
+        <img src="" slot=image>
+        <span slot=artist>{{artist}}</span>
+        <span slot=title>{{name}}</span>
+      </item-box>
+    </white-box>
+    <white-box>
+      <id-table>
+        <span slot=tidal_id>{{tidal_id}}</span>
+        <span slot=spotify_id>{{spotify_id}}</span>
+        <spanslot=itunes_id>{{itunes_id}}</span>
+        <span slot=deezer_id>{{deezer_id}}</span>
+        <span slot=isrc_id>{{isrc_id}}</span>
+      </id-table>
+    </white-box>
+    <white-box>
+      <iframe id=tidal-embed src=https://embed.tidal.com/tracks/94354496></iframe>
+    </white-box>
+  </div>
+  <script type="module" src="/main.mjs"></script>
+</body>
+</html>
