@@ -6,6 +6,10 @@
     {
       "src": "index.rs",
       "use": "@now/rust"
+    },
+    {
+      "src": "*.hbs",
+      "use": "@now/static"
     }
   ]
 }

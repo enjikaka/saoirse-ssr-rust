@@ -44,8 +44,6 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
       let template_from_file = fs::read_to_string("song.hbs").expect("Could not read file");
       let html_content = handlebars.render_template(&template_from_file, &data).expect("Failed to render template");
 
-      // let html_content = format!("<b>{name}</b>", name = data.name);
-
       let response = Response::builder()
         .status(StatusCode::OK)
         .header(header::CONTENT_TYPE, "text/html")
@@ -61,12 +59,14 @@ fn handler(request: Request<()>) -> http::Result<Response<String>> {
   }
 }
 
+/*
 fn main() {
   let mut request = Request::builder();
 
-  request.uri("http://localhost?musicService=tidal&itemType=track&itemId=104673499");
+  request.uri("http://localhost?musicService=tidal&itemType=track&itemId=105114863");
 
   let response = handler(request.body(()).unwrap()).expect("Request got handled");
 
   println!("{:?}", response);
 }
+*/
