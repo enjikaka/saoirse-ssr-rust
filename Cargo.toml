@@ -9,6 +9,7 @@ lambda_runtime = "*"
 url = "*"
 reqwest = "*"
 serde = "*"
+serde_derive = "*"
 serde_json = "*"
 
 [[bin]]
